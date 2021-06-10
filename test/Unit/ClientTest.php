@@ -5,6 +5,9 @@ declare(strict_types=1);
 namespace GSteel\Akismet\Test;
 
 use GSteel\Akismet\Client;
+use GSteel\Akismet\CommentParameters;
+use GSteel\Akismet\CommentType;
+use GSteel\Akismet\Exception\ApiError;
 use GSteel\Akismet\Exception\HttpError;
 use Http\Client\Exception\NetworkException;
 use Laminas\Diactoros\Request;
@@ -16,6 +19,7 @@ use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Throwable;
 
+use function file_get_contents;
 use function urlencode;
 
 class ClientTest extends TestCase
@@ -40,6 +44,16 @@ class ClientTest extends TestCase
             new RequestFactory(),
             $this->streamFactory
         );
+    }
+
+    private function fixture(string $fileName): string
+    {
+        return file_get_contents(__DIR__ . '/fixtures/' . $fileName);
+    }
+
+    private function responseFixture(string $fileName): ResponseInterface
+    {
+        return Response\Serializer::fromString($this->fixture($fileName));
     }
 
     private function responseWithBody(string $body): ResponseInterface
@@ -93,5 +107,19 @@ class ClientTest extends TestCase
         } catch (Throwable $e) {
             throw $e;
         }
+    }
+
+    public function testThatAnApiErrorIsThrownWhenTheResponseIndicatesTheParametersAreInvalid(): void
+    {
+        $this->httpClient->setDefaultResponse(
+            $this->responseFixture('missing-ip.http')
+        );
+        $params = (new CommentParameters())
+            ->withRequestParams('127.0.0.1')
+            ->withComment('Anything', CommentType::forumPost());
+
+        $this->expectException(ApiError::class);
+        $this->expectExceptionMessage('Empty "user_ip" value');
+        $this->akismet->check($params);
     }
 }
