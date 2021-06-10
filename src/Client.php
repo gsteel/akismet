@@ -44,7 +44,7 @@ final class Client implements AkismetClient
         $this->streamFactory = $streamFactory;
     }
 
-    public function verifyKey(?string $websiteUri = null, ?string $apiKey = null): bool
+    public function verifyKey(?string $apiKey = null, ?string $websiteUri = null): bool
     {
         $request = $this->requestFactory->createRequest('POST', self::VERIFY_KEY_URI)
             ->withBody($this->streamFactory->createStream(http_build_query([

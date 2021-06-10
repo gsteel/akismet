@@ -52,7 +52,7 @@ class ClientTest extends TestCase
     public function testThatVerifyingTheKeyIsSuccessfulWhenTheApiIndicatesItIsValid(): RequestInterface
     {
         $this->httpClient->setDefaultResponse($this->responseWithBody('valid'));
-        self::assertTrue($this->akismet->verifyKey('https://other.example.com', 'WHATEVER'));
+        self::assertTrue($this->akismet->verifyKey('WHATEVER', 'https://other.example.com'));
 
         return $this->httpClient->getLastRequest();
     }
