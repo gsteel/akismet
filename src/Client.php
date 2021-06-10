@@ -57,6 +57,8 @@ final class Client implements AkismetClient
 
     public function check(CommentParameters $parameters): Result
     {
+        $parameters = $this->prepareParameters($parameters);
+
         $response = $this->apiAction($parameters, self::CHECK_ACTION);
         $body = (string) $response->getBody();
         $isInvalid = strtolower($body) !== 'true' && strtolower($body) !== 'false';
@@ -72,16 +74,14 @@ final class Client implements AkismetClient
 
     public function submitSpam(CommentParameters $parameters): void
     {
-        $response = $this->apiAction($parameters, self::SUBMIT_SPAM_ACTION);
-        $body = (string) $response->getBody();
-        // We have no idea what a failure response might look like.
+        $parameters = $this->prepareParameters($parameters);
+        $this->apiAction($parameters, self::SUBMIT_SPAM_ACTION);
     }
 
     public function submitHam(CommentParameters $parameters): void
     {
-        $response = $this->apiAction($parameters, self::SUBMIT_HAM_ACTION);
-        $body = (string) $response->getBody();
-        // We have no idea what a failure response might look like.
+        $parameters = $this->prepareParameters($parameters);
+        $this->apiAction($parameters, self::SUBMIT_HAM_ACTION);
     }
 
     private function apiAction(CommentParameters $parameters, string $action): ResponseInterface
@@ -104,5 +104,14 @@ final class Client implements AkismetClient
     private function action(string $name): string
     {
         return sprintf(self::API_URI_TEMPLATE, $this->apiKey, $name);
+    }
+
+    private function prepareParameters(CommentParameters $parameters): CommentParameters
+    {
+        if (! $parameters->websiteUrl()) {
+            return $parameters->withWebsiteUrl($this->websiteUri);
+        }
+
+        return $parameters;
     }
 }

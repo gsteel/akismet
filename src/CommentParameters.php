@@ -148,6 +148,18 @@ final class CommentParameters implements JsonSerializable
         ])));
     }
 
+    public function websiteUrl(): ?string
+    {
+        return $this->storage['blog'] ?? null;
+    }
+
+    public function withWebsiteUrl(string $url): self
+    {
+        Assert::url($url);
+
+        return $this->merge(new self(['blog' => $url]));
+    }
+
     private function assertValid(): void
     {
         $message = null;
