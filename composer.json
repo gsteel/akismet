@@ -24,7 +24,8 @@
         "laminas/laminas-diactoros": "^2.6",
         "phpunit/phpunit": "^9.5",
         "php-http/mock-client": "^1.4",
-        "php-http/client-common": "^2.0"
+        "php-http/client-common": "^2.0",
+        "php-http/curl-client": "^2.2"
     },
     "autoload": {
         "psr-4": {
@@ -33,7 +34,8 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "GSteel\\Akismet\\Test\\": "test/Unit"
+            "GSteel\\Akismet\\Test\\": "test/Unit",
+            "GSteel\\Akismet\\IntegrationTest\\": "test/Integration"
         }
     }
 }
