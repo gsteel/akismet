@@ -1,0 +1,38 @@
+{
+    "name": "gsteel/akismet",
+    "type": "library",
+    "description": "Simple Akismet API Bindings",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "George Steel",
+            "email": "george@net-glue.co.uk"
+        }
+    ],
+    "require": {
+        "php": "^7.3 || ~8.0",
+        "ext-json": "*",
+        "php-http/discovery": "^1.14",
+        "psr/http-client": "^1.0",
+        "psr/http-factory": "^1.0",
+        "myclabs/php-enum": "^1.8",
+        "webmozart/assert": "^1.10"
+    },
+    "require-dev": {
+        "doctrine/coding-standard": "^9.0",
+        "ergebnis/composer-normalize": "^2.14",
+        "laminas/laminas-diactoros": "^2.6",
+        "phpunit/phpunit": "^9.5",
+        "php-http/mock-client": "^1.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "GSteel\\Akismet\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "GSteel\\Akismet\\Test\\": "test/Unit"
+        }
+    }
+}
