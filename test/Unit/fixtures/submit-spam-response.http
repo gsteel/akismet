@@ -1,0 +1,8 @@
+HTTP/1.1 200 OK
+Server: nginx
+Date: Fri, 11 Jun 2021 07:31:18 GMT
+Content-Type: text/plain; charset=utf-8
+Content-Length: 41
+Connection: close
+
+Thanks for making the web a better place.

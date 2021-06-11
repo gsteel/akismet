@@ -75,13 +75,24 @@ final class Client implements AkismetClient
     public function submitSpam(CommentParameters $parameters): void
     {
         $parameters = $this->prepareParameters($parameters);
-        $this->apiAction($parameters, self::SUBMIT_SPAM_ACTION);
+        $response = $this->apiAction($parameters, self::SUBMIT_SPAM_ACTION);
+        $this->assertSubmissionBodyIsExpectedValue($response);
     }
 
     public function submitHam(CommentParameters $parameters): void
     {
         $parameters = $this->prepareParameters($parameters);
-        $this->apiAction($parameters, self::SUBMIT_HAM_ACTION);
+        $response = $this->apiAction($parameters, self::SUBMIT_HAM_ACTION);
+        $this->assertSubmissionBodyIsExpectedValue($response);
+    }
+
+    public function assertSubmissionBodyIsExpectedValue(ResponseInterface $response): void
+    {
+        $expect = strtolower('Thanks for making the web a better place.');
+        $body = strtolower((string) $response->getBody());
+        if ($expect !== $body) {
+            throw ApiError::fromResponse($response);
+        }
     }
 
     private function apiAction(CommentParameters $parameters, string $action): ResponseInterface

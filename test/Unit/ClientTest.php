@@ -122,4 +122,94 @@ class ClientTest extends TestCase
         $this->expectExceptionMessage('Empty "user_ip" value');
         $this->akismet->check($params);
     }
+
+    public function testThatASpamResponseIsConsideredSpam(): void
+    {
+        $this->httpClient->setDefaultResponse(
+            $this->responseFixture('spam-response.http')
+        );
+        $params = (new CommentParameters())
+            ->withRequestParams('127.0.0.1')
+            ->withComment('Anything', CommentType::forumPost());
+        self::assertTrue($this->akismet->check($params)->isSpam());
+    }
+
+    public function testThatAHamResponseIsConsideredHam(): void
+    {
+        $this->httpClient->setDefaultResponse(
+            $this->responseFixture('ham-response.http')
+        );
+        $params = (new CommentParameters())
+            ->withRequestParams('127.0.0.1')
+            ->withComment('Anything', CommentType::forumPost());
+        self::assertFalse($this->akismet->check($params)->isSpam());
+    }
+
+    public function testSubmitSpamIsExceptionalForAnInvalidRequest(): void
+    {
+        $this->httpClient->setDefaultResponse(
+            $this->responseFixture('missing-ip.http')
+        );
+        $params = (new CommentParameters())
+            ->withRequestParams('127.0.0.1')
+            ->withComment('Anything', CommentType::forumPost());
+
+        $this->expectException(ApiError::class);
+        $this->expectExceptionMessage('Empty "user_ip" value');
+        $this->akismet->submitSpam($params);
+    }
+
+    public function testSubmitHamIsExceptionalForAnInvalidRequest(): void
+    {
+        $this->httpClient->setDefaultResponse(
+            $this->responseFixture('missing-ip.http')
+        );
+        $params = (new CommentParameters())
+            ->withRequestParams('127.0.0.1')
+            ->withComment('Anything', CommentType::reply());
+
+        $this->expectException(ApiError::class);
+        $this->expectExceptionMessage('Empty "user_ip" value');
+        $this->akismet->submitHam($params);
+    }
+
+    public function testThatTheConfiguredWebsiteAddressWillNotBeUsedWhenAHostNameIsSetInTheRequestParameters(): void
+    {
+        $this->httpClient->setDefaultResponse(
+            $this->responseFixture('spam-response.http')
+        );
+        $params = (new CommentParameters())
+            ->withRequestParams('127.0.0.1')
+            ->withComment('Anything', CommentType::signup())
+            ->withHostInformation('https://temp.example.com');
+
+        $result = $this->akismet->check($params);
+        self::assertEquals('https://temp.example.com', $result->parameters()->websiteUrl());
+    }
+
+    public function testThatSubmittingSpamSuccessfullyDoesNotYieldAnyErrors(): void
+    {
+        $this->httpClient->setDefaultResponse(
+            $this->responseFixture('submit-spam-response.http')
+        );
+        $params = (new CommentParameters())
+            ->withRequestParams('127.0.0.1')
+            ->withComment('Anything', CommentType::message());
+
+        $this->akismet->submitSpam($params);
+        $this->addToAssertionCount(1);
+    }
+
+    public function testThatSubmittingHamSuccessfullyDoesNotYieldAnyErrors(): void
+    {
+        $this->httpClient->setDefaultResponse(
+            $this->responseFixture('submit-spam-response.http')
+        );
+        $params = (new CommentParameters())
+            ->withRequestParams('127.0.0.1')
+            ->withComment('Anything', CommentType::message());
+
+        $this->akismet->submitHam($params);
+        $this->addToAssertionCount(1);
+    }
 }
