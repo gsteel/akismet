@@ -9,10 +9,15 @@ use GSteel\Akismet\Exception\HttpError;
 
 interface AkismetClient
 {
+    /** @internal */
     public const VERIFY_KEY_URI = 'https://rest.akismet.com/1.1/verify-key';
+    /** @internal */
     public const API_URI_TEMPLATE = 'https://%1$s.rest.akismet.com/1.1/%2$s';
+    /** @internal */
     public const CHECK_ACTION = 'comment-check';
+    /** @internal */
     public const SUBMIT_SPAM_ACTION = 'submit-spam';
+    /** @internal */
     public const SUBMIT_HAM_ACTION = 'submit-ham';
 
     /**
