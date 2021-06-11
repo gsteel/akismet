@@ -2,6 +2,13 @@
     "name": "gsteel/akismet",
     "type": "library",
     "description": "Simple Akismet API Bindings",
+    "keywords": [
+        "akismet",
+        "spam",
+        "psr-17",
+        "psr-18",
+        "api-client"
+    ],
     "license": "MIT",
     "authors": [
         {
