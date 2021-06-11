@@ -5,8 +5,13 @@ declare(strict_types=1);
 namespace GSteel\Akismet\Test;
 
 use GSteel\Akismet\CommentParameters;
+use GSteel\Akismet\CommentType;
 use GSteel\Akismet\Result;
 use PHPUnit\Framework\TestCase;
+
+use function json_encode;
+
+use const JSON_THROW_ON_ERROR;
 
 class ResultTest extends TestCase
 {
@@ -43,5 +48,20 @@ class ResultTest extends TestCase
         self::assertTrue($result());
         $result = new Result($this->params, false);
         self::assertFalse($result());
+    }
+
+    public function testThatResultsSurviveAJsonEncodeRoundTrip(): void
+    {
+        $params = $this->params->withComment('Foo', CommentType::signup());
+        $original = new Result($params, true);
+        $jsonString = json_encode($original, JSON_THROW_ON_ERROR);
+        $hydrated = Result::fromJsonString($jsonString);
+
+        self::assertEquals(
+            $original->parameters()->getArrayCopy(),
+            $hydrated->parameters()->getArrayCopy()
+        );
+
+        self::assertTrue($hydrated->isSpam());
     }
 }
