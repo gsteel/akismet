@@ -30,9 +30,9 @@
     },
     "require-dev": {
         "doctrine/coding-standard": "^9.0",
-        "ergebnis/composer-normalize": "^2.14",
+        "ergebnis/composer-normalize": "^2.15",
         "laminas/laminas-diactoros": "^2.6",
-        "php-http/client-common": "^2.0",
+        "php-http/client-common": "^2.3",
         "php-http/curl-client": "^2.2",
         "php-http/mock-client": "^1.4",
         "phpunit/phpunit": "^9.5"
