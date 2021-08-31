@@ -55,6 +55,7 @@ final class ClientTest extends TestCase
         self::assertTrue($this->client->verifyKey($this->apiKey, $this->blog));
     }
 
+    /** @depends testValidApiKey */
     public function testSpam(): void
     {
         $params = (new CommentParameters())
@@ -65,6 +66,7 @@ final class ClientTest extends TestCase
         self::assertTrue($this->client->check($params)->isSpam());
     }
 
+    /** @depends testValidApiKey */
     public function testHam(): void
     {
         $params = (new CommentParameters(['user_role' => 'administrator']))
@@ -75,6 +77,7 @@ final class ClientTest extends TestCase
         self::assertFalse($this->client->check($params)->isSpam());
     }
 
+    /** @depends testValidApiKey */
     public function testSubmitHamOperatesWithoutObviousError(): void
     {
         $params = (new CommentParameters())
@@ -86,6 +89,7 @@ final class ClientTest extends TestCase
         $this->addToAssertionCount(1);
     }
 
+    /** @depends testValidApiKey */
     public function testSubmitSpamOperatesWithoutObviousError(): void
     {
         $params = (new CommentParameters())
