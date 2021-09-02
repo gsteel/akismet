@@ -1,0 +1,27 @@
+name: Scheduled Test Suite
+on:
+  schedule:
+    - cron: '30 10 1,16 * *'
+  push:
+    branches:
+      - main
+
+jobs:
+  run-tests:
+    name: Scheduled Test Suite
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: codecov/codecov-action@v2
+      - name: Setup PHP Action
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 7.4
+          coverage: pcov
+      - name: Install latest dependencies
+        run: composer update --prefer-dist --no-progress
+      - name: PHPUnit
+        run: php -dpcov.enabled=1 ./vendor/bin/phpunit --coverage-clover=coverage.xml
+        env:
+          AKISMET_KEY: ${{ secrets.AKISMET_KEY }}
+          AKISMET_BLOG: ${{ secrets.AKISMET_BLOG }}
