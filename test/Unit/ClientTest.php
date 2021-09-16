@@ -13,6 +13,7 @@ use Http\Client\Exception\NetworkException;
 use Laminas\Diactoros\Request;
 use Laminas\Diactoros\RequestFactory;
 use Laminas\Diactoros\Response;
+use Laminas\Diactoros\ResponseFactory;
 use Laminas\Diactoros\StreamFactory;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\RequestInterface;
@@ -35,7 +36,9 @@ class ClientTest extends TestCase
     {
         parent::setUp();
 
-        $this->httpClient = new \Http\Mock\Client();
+        $this->httpClient = new \Http\Mock\Client(
+            new ResponseFactory()
+        );
         $this->streamFactory = new StreamFactory();
         $this->akismet = new Client(
             'APIKEY',

@@ -7,8 +7,9 @@ namespace GSteel\Akismet\IntegrationTest;
 use GSteel\Akismet\Client;
 use GSteel\Akismet\CommentParameters;
 use GSteel\Akismet\CommentType;
-use Http\Discovery\Psr17FactoryDiscovery;
-use Http\Discovery\Psr18ClientDiscovery;
+use Laminas\Diactoros\RequestFactory;
+use Laminas\Diactoros\ResponseFactory;
+use Laminas\Diactoros\StreamFactory;
 use PHPUnit\Framework\TestCase;
 
 use function getenv;
@@ -44,9 +45,12 @@ final class ClientTest extends TestCase
         return new Client(
             $key,
             $url,
-            Psr18ClientDiscovery::find(),
-            Psr17FactoryDiscovery::findRequestFactory(),
-            Psr17FactoryDiscovery::findStreamFactory()
+            new \Http\Client\Curl\Client(
+                new ResponseFactory(),
+                new StreamFactory()
+            ),
+            new RequestFactory(),
+            new StreamFactory()
         );
     }
 
