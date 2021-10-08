@@ -20,7 +20,7 @@
         "php": "^7.3 || ~8.0",
         "ext-json": "*",
         "myclabs/php-enum": "^1.8",
-        "php-http/discovery": "^1.14",
+        "php-http/discovery": "^1.14.1",
         "psr/container": "^1.0 || ^2.0",
         "psr/http-client": "^1.0.1",
         "psr/http-client-implementation": "*",
@@ -31,11 +31,11 @@
     "require-dev": {
         "doctrine/coding-standard": "^9.0",
         "ergebnis/composer-normalize": "^2.15",
-        "laminas/laminas-diactoros": "^2.6",
-        "php-http/client-common": "^2.3",
+        "laminas/laminas-diactoros": "^2.8",
+        "php-http/client-common": "^2.4",
         "php-http/curl-client": "^2.2",
-        "php-http/mock-client": "^1.4",
-        "phpunit/phpunit": "^9.5"
+        "php-http/mock-client": "^1.5",
+        "phpunit/phpunit": "^9.5.10"
     },
     "autoload": {
         "psr-4": {
