@@ -17,9 +17,9 @@
         }
     ],
     "require": {
-        "php": "^7.3 || ~8.0",
+        "php": "^7.3 || ~8.0 || ~8.1",
         "ext-json": "*",
-        "myclabs/php-enum": "^1.8",
+        "myclabs/php-enum": "^1.8.3",
         "php-http/discovery": "^1.14.1",
         "psr/container": "^1.0 || ^2.0",
         "psr/http-client": "^1.0.1",
@@ -35,7 +35,8 @@
         "php-http/client-common": "^2.4",
         "php-http/curl-client": "^2.2",
         "php-http/mock-client": "^1.5",
-        "phpunit/phpunit": "^9.5.10"
+        "phpunit/phpunit": "^9.5.10",
+        "symfony/options-resolver": "^5.3.7"
     },
     "autoload": {
         "psr-4": {
