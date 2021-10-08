@@ -17,7 +17,7 @@
         }
     ],
     "require": {
-        "php": "^7.3 || ~8.0",
+        "php": "^7.3 || ~8.0 || ~8.1",
         "ext-json": "*",
         "myclabs/php-enum": "^1.8",
         "php-http/discovery": "^1.14.1",
