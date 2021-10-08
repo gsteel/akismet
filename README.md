@@ -9,7 +9,7 @@ Provides a straight-forward way of using the [Akismet](https://akismet.com) anti
 
 ## Installation & Requirements
 
-Requires PHP ^7.3 || ~8.0
+Requires PHP ^7.3 || ~8.0 || ~8.1
 
 The library does not include an HTTP client, so if your project does not already have a [PSR-18 HTTP Client](https://www.php-fig.org/psr/psr-18/) installed, you will need to install one in order to use it. There are many [HTTP clients to choose](https://packagist.org/providers/psr/http-client-implementation) from, for example the popular libraries [Guzzle](https://packagist.org/packages/guzzlehttp/guzzle) or [HttpPlug](https://packagist.org/packages/php-http/curl-client).
 
