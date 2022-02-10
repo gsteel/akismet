@@ -1,7 +1,7 @@
 name: Scheduled Test Suite
 on:
   schedule:
-    - cron: '30 10 1,16 * *'
+    - cron: '30 10 * * 1'
   push:
     branches:
       - main
