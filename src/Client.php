@@ -46,7 +46,7 @@ final class Client implements AkismetClient
 
     public function verifyKey(?string $apiKey = null, ?string $websiteUri = null): bool
     {
-        $request = $this->requestFactory->createRequest('POST', self::VERIFY_KEY_URI)
+        $request = $this->createRequest(self::VERIFY_KEY_URI)
             ->withBody($this->streamFactory->createStream(http_build_query([
                 'key' => $apiKey ?? $this->apiKey,
                 'blog' => $websiteUri ?? $this->websiteUri,
@@ -101,8 +101,15 @@ final class Client implements AkismetClient
 
     private function apiAction(CommentParameters $parameters, string $action): RequestInterface
     {
-        return $this->requestFactory->createRequest('POST', $this->action($action))
+        return $this->createRequest($this->action($action))
             ->withBody($this->streamFactory->createStream(http_build_query($parameters->toParameterList())));
+    }
+
+    private function createRequest(string $url): RequestInterface
+    {
+        return $this->requestFactory->createRequest('POST', $url)
+            ->withHeader('User-Agent', self::USER_AGENT)
+            ->withHeader('Content-Type', 'application/x-www-form-urlencoded');
     }
 
     private function sendRequest(RequestInterface $request): ResponseInterface

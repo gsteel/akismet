@@ -19,6 +19,7 @@ use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
+use function current;
 use function file_get_contents;
 use function urlencode;
 
@@ -83,6 +84,26 @@ class ClientTest extends TestCase
     public function testThatTheKeyVerificationRequestUsesTheGivenApiKey(RequestInterface $request): void
     {
         self::assertStringContainsString(urlencode('WHATEVER'), (string) $request->getBody());
+    }
+
+    /** @depends testThatVerifyingTheKeyIsSuccessfulWhenTheApiIndicatesItIsValid */
+    public function testTheRequestHasContentTypeHeader(RequestInterface $request): void
+    {
+        $header = $request->getHeader('Content-Type');
+        self::assertCount(1, $header);
+        $value = current($header);
+        self::assertIsString($value);
+        self::assertEquals('application/x-www-form-urlencoded', $value);
+    }
+
+    /** @depends testThatVerifyingTheKeyIsSuccessfulWhenTheApiIndicatesItIsValid */
+    public function testTheRequestHasANonEmptyUserAgentHeader(RequestInterface $request): void
+    {
+        $header = $request->getHeader('User-Agent');
+        self::assertCount(1, $header);
+        $value = current($header);
+        self::assertIsString($value);
+        self::assertNotEmpty($value);
     }
 
     public function testThatKeyVerificationArgumentsDefaultToTheConfiguredValues(): void
