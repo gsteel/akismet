@@ -18,7 +18,6 @@ use Laminas\Diactoros\StreamFactory;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
-use Throwable;
 
 use function file_get_contents;
 use function urlencode;
@@ -107,8 +106,6 @@ class ClientTest extends TestCase
             self::assertStringContainsString('Bad News', $error->getMessage());
 
             return;
-        } catch (Throwable $e) {
-            throw $e;
         }
     }
 
@@ -124,6 +121,25 @@ class ClientTest extends TestCase
         $this->expectException(ApiError::class);
         $this->expectExceptionMessage('Empty "user_ip" value');
         $this->akismet->check($params);
+    }
+
+    public function testThatThrownApiErrorsContainReferencesToTheRequestAndResponse(): void
+    {
+        $response = $this->responseFixture('missing-ip.http');
+        $this->httpClient->setDefaultResponse($response);
+
+        $params = (new CommentParameters())
+            ->withRequestParams('127.0.0.1')
+            ->withComment('Anything', CommentType::forumPost());
+
+        try {
+            $this->akismet->check($params);
+
+            $this->fail('An exception was no thrown');
+        } catch (ApiError $error) {
+            self::assertSame($response, $error->getResponse());
+            self::assertInstanceOf(RequestInterface::class, $error->getRequest());
+        }
     }
 
     public function testThatASpamResponseIsConsideredSpam(): void

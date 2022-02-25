@@ -59,12 +59,14 @@ final class Client implements AkismetClient
     {
         $parameters = $this->prepareParameters($parameters);
 
-        $response = $this->apiAction($parameters, self::CHECK_ACTION);
+        $request = $this->apiAction($parameters, self::CHECK_ACTION);
+        $response = $this->sendRequest($request);
+
         $body = (string) $response->getBody();
         $isInvalid = strtolower($body) !== 'true' && strtolower($body) !== 'false';
 
         if ($isInvalid) {
-            throw ApiError::fromResponse($response);
+            throw ApiError::with($request, $response);
         }
 
         $isSpam = strtolower($body) === 'true';
@@ -75,15 +77,17 @@ final class Client implements AkismetClient
     public function submitSpam(CommentParameters $parameters): void
     {
         $parameters = $this->prepareParameters($parameters);
-        $response = $this->apiAction($parameters, self::SUBMIT_SPAM_ACTION);
-        $this->assertSubmissionBodyIsExpectedValue($response);
+        $request = $this->apiAction($parameters, self::SUBMIT_SPAM_ACTION);
+        $response = $this->sendRequest($request);
+        $this->assertSubmissionBodyIsExpectedValue($request, $response);
     }
 
     public function submitHam(CommentParameters $parameters): void
     {
         $parameters = $this->prepareParameters($parameters);
-        $response = $this->apiAction($parameters, self::SUBMIT_HAM_ACTION);
-        $this->assertSubmissionBodyIsExpectedValue($response);
+        $request = $this->apiAction($parameters, self::SUBMIT_HAM_ACTION);
+        $response = $this->sendRequest($request);
+        $this->assertSubmissionBodyIsExpectedValue($request, $response);
     }
 
     private function assertSubmissionBodyIsExpectedValue(RequestInterface $request, ResponseInterface $response): void
@@ -95,12 +99,10 @@ final class Client implements AkismetClient
         }
     }
 
-    private function apiAction(CommentParameters $parameters, string $action): ResponseInterface
+    private function apiAction(CommentParameters $parameters, string $action): RequestInterface
     {
-        $request = $this->requestFactory->createRequest('POST', $this->action($action))
+        return $this->requestFactory->createRequest('POST', $this->action($action))
             ->withBody($this->streamFactory->createStream(http_build_query($parameters->toParameterList())));
-
-        return $this->sendRequest($request);
     }
 
     private function sendRequest(RequestInterface $request): ResponseInterface
