@@ -19,6 +19,8 @@ interface AkismetClient
     public const SUBMIT_SPAM_ACTION = 'submit-spam';
     /** @internal */
     public const SUBMIT_HAM_ACTION = 'submit-ham';
+    /** @internal */
+    public const USER_AGENT = 'gsteel/akismet PHP API Client/1.3.0';
 
     /**
      * Verify the configured, or the given Akismet key is usable with the given website address
