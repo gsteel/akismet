@@ -86,12 +86,12 @@ final class Client implements AkismetClient
         $this->assertSubmissionBodyIsExpectedValue($response);
     }
 
-    public function assertSubmissionBodyIsExpectedValue(ResponseInterface $response): void
+    private function assertSubmissionBodyIsExpectedValue(RequestInterface $request, ResponseInterface $response): void
     {
         $expect = strtolower('Thanks for making the web a better place.');
         $body = strtolower((string) $response->getBody());
         if ($expect !== $body) {
-            throw ApiError::fromResponse($response);
+            throw ApiError::with($request, $response);
         }
     }
 
