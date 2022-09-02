@@ -99,7 +99,7 @@ final class CommentParameters implements JsonSerializable
             $values['REMOTE_ADDR'],
             $values['HTTP_USER_AGENT'],
             $values['HTTP_REFERER'],
-            (string) $request->getUri()
+            (string) $request->getUri(),
         );
     }
 
@@ -108,9 +108,7 @@ final class CommentParameters implements JsonSerializable
         return $this->merge(self::fromRequest($request));
     }
 
-    /**
-     * @throws InvalidRequestParameters If the IP address is invalid, or any URL parameters don't validate.
-     */
+    /** @throws InvalidRequestParameters If the IP address is invalid, or any URL parameters don't validate. */
     public function withRequestParams(
         string $ipAddress,
         ?string $userAgent = null,
@@ -129,9 +127,7 @@ final class CommentParameters implements JsonSerializable
         ])));
     }
 
-    /**
-     * @throws InvalidRequestParameters If any email or url parameters and not valid.
-     */
+    /** @throws InvalidRequestParameters If any email or url parameters and not valid. */
     public function withComment(
         string $comment,
         CommentType $type,
@@ -172,9 +168,7 @@ final class CommentParameters implements JsonSerializable
         ]));
     }
 
-    /**
-     * @throws InvalidRequestParameters if the website url is not a complete and valid url.
-     */
+    /** @throws InvalidRequestParameters if the website url is not a complete and valid url. */
     public function withHostInformation(
         string $websiteUrl,
         ?string $websiteLanguage = null,
@@ -219,22 +213,22 @@ final class CommentParameters implements JsonSerializable
             Assert::keyExists(
                 $this->storage,
                 'user_ip',
-                'The IP Address of the remote user is required parameter'
+                'The IP Address of the remote user is required parameter',
             );
             Assert::keyExists(
                 $this->storage,
                 'blog',
-                'The website address of the target website is a required parameter'
+                'The website address of the target website is a required parameter',
             );
             Assert::keyExists(
                 $this->storage,
                 'comment_content',
-                'The comment content is a required parameter'
+                'The comment content is a required parameter',
             );
             Assert::keyExists(
                 $this->storage,
                 'comment_type',
-                'The comment type is a required parameter'
+                'The comment type is a required parameter',
             );
 
             return true;
@@ -281,15 +275,13 @@ final class CommentParameters implements JsonSerializable
         return new self($data);
     }
 
-    /**
-     * @throws InvalidRequestParameters if the parameter name is not recognised.
-     */
+    /** @throws InvalidRequestParameters if the parameter name is not recognised. */
     private function assertValidOffset(string $offset): void
     {
         if (! in_array($offset, self::VALID_KEYS, true)) {
             throw new InvalidRequestParameters(sprintf(
                 'The parameter "%s" is not a valid parameter name',
-                $offset
+                $offset,
             ));
         }
     }

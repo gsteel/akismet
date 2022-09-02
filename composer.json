@@ -29,7 +29,7 @@
         "webmozart/assert": "^1.11"
     },
     "require-dev": {
-        "doctrine/coding-standard": "^9.0",
+        "doctrine/coding-standard": "^10.0",
         "ergebnis/composer-normalize": "^2.20",
         "laminas/laminas-diactoros": "^2.13",
         "php-http/client-common": "^2.5",
@@ -56,5 +56,16 @@
             "dealerdirect/phpcodesniffer-composer-installer": true,
             "ergebnis/composer-normalize": true
         }
+    },
+    "scripts": {
+        "check": [
+            "@cs",
+            "@sa",
+            "@test"
+        ],
+        "cs": "phpcs",
+        "sa": "psalm",
+        "test": "phpunit",
+        "static-analysis": "psalm --stats --shepherd"
     }
 }

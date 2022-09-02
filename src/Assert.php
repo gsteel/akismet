@@ -34,7 +34,7 @@ final class Assert extends WebmozartAssert
 
         self::reportInvalidArgument(sprintf(
             $message ?: 'Expected a value to be a valid URL. Got: %s',
-            self::valueToString($value)
+            self::valueToString($value),
         ));
     }
 

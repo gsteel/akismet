@@ -22,9 +22,7 @@ class ApiErrorTest extends TestCase
         self::assertSame($response, $error->getResponse());
     }
 
-    /**
-     * @return array<array-key, array{0: string}>
-     */
+    /** @return array<array-key, array{0: string}> */
     public function headerNameProvider(): array
     {
         return [

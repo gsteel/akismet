@@ -49,7 +49,7 @@ class CommentParametersTest extends TestCase
     {
         self::assertEquals(
             [],
-            (new CommentParameters())->getArrayCopy()
+            (new CommentParameters())->getArrayCopy(),
         );
     }
 
@@ -75,7 +75,7 @@ class CommentParametersTest extends TestCase
             $date,
             'Some One',
             'me@example.com',
-            'https://www.example.com'
+            'https://www.example.com',
         );
 
         $list = $params->toParameterList();
@@ -94,7 +94,7 @@ class CommentParametersTest extends TestCase
         $params = $this->params->withComment(
             'Whatever',
             CommentType::comment(),
-            $date
+            $date,
         );
         $list = $params->toParameterList();
         self::assertEquals($expect, $list['comment_date_gmt']);
@@ -104,7 +104,7 @@ class CommentParametersTest extends TestCase
     {
         $params = $this->params->withComment(
             'Whatever',
-            CommentType::blogPost()
+            CommentType::blogPost(),
         );
 
         $list = $params->toParameterList();
@@ -118,7 +118,7 @@ class CommentParametersTest extends TestCase
         $params = $this->params->withHostInformation(
             'https://www.example.com',
             'en_gb',
-            'utf-8'
+            'utf-8',
         );
 
         $list = $params->toParameterList();
@@ -157,7 +157,7 @@ class CommentParametersTest extends TestCase
             '127.0.0.1',
             'Some agent',
             'https://www.example.com',
-            'https://other.example.com'
+            'https://other.example.com',
         );
         $list = $params->toParameterList();
         self::assertEquals('127.0.0.1', $list['user_ip']);
@@ -185,7 +185,7 @@ class CommentParametersTest extends TestCase
             null,
             'Some One',
             'me@example.com',
-            'https://www.example.com'
+            'https://www.example.com',
         );
 
         self::assertNotSame($params, $withComment);
@@ -217,13 +217,11 @@ class CommentParametersTest extends TestCase
 
         self::assertEquals(
             $source->toParameterList(),
-            $target->toParameterList()
+            $target->toParameterList(),
         );
     }
 
-    /**
-     * @return array<string, array<string, string>>
-     */
+    /** @return array<string, array<string, string>> */
     public function serverArrayDataProvider(): array
     {
         return [
