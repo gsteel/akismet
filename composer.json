@@ -35,8 +35,10 @@
         "php-http/client-common": "^2.5",
         "php-http/curl-client": "^2.2",
         "php-http/mock-client": "^1.5",
-        "phpunit/phpunit": "^9.5.21",
-        "symfony/options-resolver": "^5.4.3"
+        "phpunit/phpunit": "^9.5.24",
+        "symfony/options-resolver": "^5.4.3",
+        "vimeo/psalm": "^4.27",
+        "psalm/plugin-phpunit": "^0.17.0"
     },
     "autoload": {
         "psr-4": {

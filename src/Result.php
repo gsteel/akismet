@@ -10,6 +10,7 @@ use function json_decode;
 
 use const JSON_THROW_ON_ERROR;
 
+/** @psalm-import-type ParameterArray from CommentParameters */
 final class Result implements JsonSerializable
 {
     /** @var CommentParameters */
@@ -50,10 +51,14 @@ final class Result implements JsonSerializable
     public static function fromJsonString(string $jsonString): self
     {
         $data = json_decode($jsonString, true, 512, JSON_THROW_ON_ERROR);
+        Assert::isArray($data);
+        Assert::isMap($data);
         Assert::keyExists($data, 'isSpam');
         Assert::boolean($data['isSpam']);
         Assert::keyExists($data, 'parameters');
         Assert::isArray($data['parameters']);
+        Assert::isMap($data['parameters']);
+        /** @psalm-var ParameterArray $data['parameters'] */
 
         return new self(new CommentParameters($data['parameters']), $data['isSpam']);
     }

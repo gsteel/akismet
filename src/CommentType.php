@@ -6,6 +6,10 @@ namespace GSteel\Akismet;
 
 use MyCLabs\Enum\Enum;
 
+/**
+ * @psalm-immutable
+ * @extends Enum<non-empty-string>
+ */
 final class CommentType extends Enum
 {
     private const COMMENT = 'comment';

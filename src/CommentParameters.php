@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace GSteel\Akismet;
 
+use DateTimeImmutable;
 use DateTimeInterface;
-use DateTimeZone;
 use GSteel\Akismet\Exception\InvalidRequestParameters;
 use JsonSerializable;
 use Psr\Http\Message\ServerRequestInterface;
@@ -17,10 +17,32 @@ use function in_array;
 use function is_string;
 use function sprintf;
 
+/**
+ * @psalm-type ParameterArray = array{
+ *     blog?: string|null,
+ *     user_ip?: string|null,
+ *     user_agent?: string|null,
+ *     referrer?: string|null,
+ *     permalink?: string|null,
+ *     comment_type?: string|null,
+ *     comment_author?: string|null,
+ *     comment_author_email?: string|null,
+ *     comment_author_url?: string|null,
+ *     comment_content?: string|null,
+ *     comment_date_gmt?: string|null,
+ *     comment_post_modified_gmt?: string|null,
+ *     blog_lang?: string|null,
+ *     blog_charset?: string|null,
+ *     user_role?: string|null,
+ *     is_test?: int|null,
+ *     recheck_reason?: string|null,
+ *     honeypot_field_name?: string|null,
+ *     honeypot_field_value?: string|null,
+ * }&array<string, string|int|null>
+ */
 final class CommentParameters implements JsonSerializable
 {
-    /** @var string[] */
-    private static $validKeys = [
+    private const VALID_KEYS = [
         'blog',
         'user_ip',
         'user_agent',
@@ -41,10 +63,11 @@ final class CommentParameters implements JsonSerializable
         'honeypot_field_name',
         'honeypot_field_value',
     ];
-    /** @var array<string, mixed> */
+
+    /** @psalm-var ParameterArray */
     private $storage = [];
 
-    /** @param  array<string, mixed> $parameters */
+    /** @param ParameterArray $parameters */
     public function __construct(array $parameters = [])
     {
         foreach ($parameters as $parameter => $value) {
@@ -55,11 +78,27 @@ final class CommentParameters implements JsonSerializable
     public static function fromRequest(ServerRequestInterface $request): self
     {
         $serverParams = $request->getServerParams();
+        $values = [];
+        $keys = ['REMOTE_ADDR', 'HTTP_USER_AGENT', 'HTTP_REFERER'];
+        foreach ($keys as $key) {
+            $value = isset($serverParams[$key]) && is_string($serverParams[$key]) ? $serverParams[$key] : null;
+            $values[$key] = $value;
+        }
+
+        /**
+         * @psalm-var array{
+         *     REMOTE_ADDR: string|null,
+         *     HTTP_USER_AGENT: string|null,
+         *     HTTP_REFERER: string|null,
+         * } $values
+         */
+
+        Assert::notNull($values['REMOTE_ADDR']);
 
         return (new self())->withRequestParams(
-            $serverParams['REMOTE_ADDR'] ?? null,
-            $serverParams['HTTP_USER_AGENT'] ?? null,
-            $serverParams['HTTP_REFERER'] ?? null,
+            $values['REMOTE_ADDR'],
+            $values['HTTP_USER_AGENT'],
+            $values['HTTP_REFERER'],
             (string) $request->getUri()
         );
     }
@@ -104,12 +143,14 @@ final class CommentParameters implements JsonSerializable
         Assert::nullOrEmail($authorEmail);
         Assert::nullOrUrl($authorUrl);
 
-        $commentDate = $commentDate ? $commentDate->setTimezone(new DateTimeZone('UTC')) : null;
+        $date = $commentDate
+            ? DateTimeImmutable::createFromFormat('U', (string) $commentDate->getTimestamp())
+            : null;
 
         $data = array_filter([
             'comment_content' => $comment,
             'comment_type' => $type->getValue(),
-            'comment_date_gmt' => $commentDate ? $commentDate->format(DateTimeInterface::ATOM) : null,
+            'comment_date_gmt' => $date ? $date->format(DateTimeInterface::ATOM) : null,
             'comment_author' => $authorName,
             'comment_author_email' => $authorEmail,
             'comment_author_url' => $authorUrl,
@@ -204,20 +245,20 @@ final class CommentParameters implements JsonSerializable
         }
     }
 
-    /** @return array<string, mixed> */
+    /** @return ParameterArray */
     public function jsonSerialize(): array
     {
         return $this->storage;
     }
 
-    /** @return array<string, mixed> */
+    /** @return ParameterArray */
     public function getArrayCopy(): array
     {
         return $this->storage;
     }
 
     /**
-     * @return array<string, mixed>
+     * @return array<string, int|string|null>
      *
      * @throws InvalidRequestParameters if the payload is missing any required parameters.
      */
@@ -225,7 +266,7 @@ final class CommentParameters implements JsonSerializable
     {
         $this->assertValid();
         $list = $this->storage;
-        if (isset($list['honeypot_field_name'])) {
+        if (isset($list['honeypot_field_name']) && isset($list['honeypot_field_value'])) {
             $list[$list['honeypot_field_name']] = $list['honeypot_field_value'];
             unset($list['honeypot_field_value']);
         }
@@ -245,7 +286,7 @@ final class CommentParameters implements JsonSerializable
      */
     private function assertValidOffset(string $offset): void
     {
-        if (! in_array($offset, self::$validKeys, true)) {
+        if (! in_array($offset, self::VALID_KEYS, true)) {
             throw new InvalidRequestParameters(sprintf(
                 'The parameter "%s" is not a valid parameter name',
                 $offset
@@ -253,9 +294,7 @@ final class CommentParameters implements JsonSerializable
         }
     }
 
-    /**
-     * @param mixed $value
-     */
+    /** @param string|int|null $value */
     private function set(string $offset, $value): void
     {
         $this->assertValidOffset($offset);
