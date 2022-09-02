@@ -18,6 +18,7 @@ final class Assert extends WebmozartAssert
     /**
      * @throws InvalidRequestParameters
      *
+     * @psalm-pure
      * @inheritDoc
      */
     protected static function reportInvalidArgument($message): void
