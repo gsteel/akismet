@@ -47,10 +47,10 @@ final class ClientTest extends TestCase
             $url,
             new \Http\Client\Curl\Client(
                 new ResponseFactory(),
-                new StreamFactory()
+                new StreamFactory(),
             ),
             new RequestFactory(),
-            new StreamFactory()
+            new StreamFactory(),
         );
     }
 

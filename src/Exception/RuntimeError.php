@@ -19,7 +19,7 @@ final class RuntimeError extends RuntimeException implements GenericException
         return new self(
             'HTTP Client or message related factory discovery failed.',
             0,
-            $failure
+            $failure,
         );
     }
 }

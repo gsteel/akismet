@@ -26,7 +26,7 @@ final class ClientDiscoveryFactory
         Assert::stringNotEmpty($key, 'An Akismet API Key has not been configured in `config.akismet.key`');
         Assert::stringNotEmpty(
             $website,
-            'The website address has not been configured or is invalid in `config.akismet.website`'
+            'The website address has not been configured or is invalid in `config.akismet.website`',
         );
         Assert::url($website, 'The website address has not been configured or is invalid in `config.akismet.website`');
 
@@ -41,7 +41,7 @@ final class ClientDiscoveryFactory
                 $website,
                 Psr18ClientDiscovery::find(),
                 Psr17FactoryDiscovery::findRequestFactory(),
-                Psr17FactoryDiscovery::findStreamFactory()
+                Psr17FactoryDiscovery::findStreamFactory(),
             );
         } catch (DiscoveryFailure $failure) {
             throw RuntimeError::discoveryFailed($failure);

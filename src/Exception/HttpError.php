@@ -21,7 +21,7 @@ final class HttpError extends RuntimeException implements GenericException
         $instance = new self(sprintf(
             'The request to %s failed with the error: %s',
             $request->getRequestTarget(),
-            $error->getMessage()
+            $error->getMessage(),
         ), 0, $error);
         $instance->request = $request;
 
@@ -33,7 +33,7 @@ final class HttpError extends RuntimeException implements GenericException
         Assert::isInstanceOf(
             $this->request,
             RequestInterface::class,
-            'A request was not initialised with this exception'
+            'A request was not initialised with this exception',
         );
 
         return $this->request;

@@ -37,7 +37,7 @@ class ClientTest extends TestCase
         parent::setUp();
 
         $this->httpClient = new \Http\Mock\Client(
-            new ResponseFactory()
+            new ResponseFactory(),
         );
         $this->streamFactory = new StreamFactory();
         $this->akismet = new Client(
@@ -45,7 +45,7 @@ class ClientTest extends TestCase
             'https://www.example.com',
             $this->httpClient,
             new RequestFactory(),
-            $this->streamFactory
+            $this->streamFactory,
         );
     }
 
@@ -133,7 +133,7 @@ class ClientTest extends TestCase
     public function testThatAnApiErrorIsThrownWhenTheResponseIndicatesTheParametersAreInvalid(): void
     {
         $this->httpClient->setDefaultResponse(
-            $this->responseFixture('missing-ip.http')
+            $this->responseFixture('missing-ip.http'),
         );
         $params = (new CommentParameters())
             ->withRequestParams('127.0.0.1')
@@ -166,7 +166,7 @@ class ClientTest extends TestCase
     public function testThatASpamResponseIsConsideredSpam(): void
     {
         $this->httpClient->setDefaultResponse(
-            $this->responseFixture('spam-response.http')
+            $this->responseFixture('spam-response.http'),
         );
         $params = (new CommentParameters())
             ->withRequestParams('127.0.0.1')
@@ -177,7 +177,7 @@ class ClientTest extends TestCase
     public function testThatAHamResponseIsConsideredHam(): void
     {
         $this->httpClient->setDefaultResponse(
-            $this->responseFixture('ham-response.http')
+            $this->responseFixture('ham-response.http'),
         );
         $params = (new CommentParameters())
             ->withRequestParams('127.0.0.1')
@@ -188,7 +188,7 @@ class ClientTest extends TestCase
     public function testSubmitSpamIsExceptionalForAnInvalidRequest(): void
     {
         $this->httpClient->setDefaultResponse(
-            $this->responseFixture('missing-ip.http')
+            $this->responseFixture('missing-ip.http'),
         );
         $params = (new CommentParameters())
             ->withRequestParams('127.0.0.1')
@@ -202,7 +202,7 @@ class ClientTest extends TestCase
     public function testSubmitHamIsExceptionalForAnInvalidRequest(): void
     {
         $this->httpClient->setDefaultResponse(
-            $this->responseFixture('missing-ip.http')
+            $this->responseFixture('missing-ip.http'),
         );
         $params = (new CommentParameters())
             ->withRequestParams('127.0.0.1')
@@ -216,7 +216,7 @@ class ClientTest extends TestCase
     public function testThatTheConfiguredWebsiteAddressWillNotBeUsedWhenAHostNameIsSetInTheRequestParameters(): void
     {
         $this->httpClient->setDefaultResponse(
-            $this->responseFixture('spam-response.http')
+            $this->responseFixture('spam-response.http'),
         );
         $params = (new CommentParameters())
             ->withRequestParams('127.0.0.1')
@@ -230,7 +230,7 @@ class ClientTest extends TestCase
     public function testThatSubmittingSpamSuccessfullyDoesNotYieldAnyErrors(): void
     {
         $this->httpClient->setDefaultResponse(
-            $this->responseFixture('submit-spam-response.http')
+            $this->responseFixture('submit-spam-response.http'),
         );
         $params = (new CommentParameters())
             ->withRequestParams('127.0.0.1')
@@ -243,7 +243,7 @@ class ClientTest extends TestCase
     public function testThatSubmittingHamSuccessfullyDoesNotYieldAnyErrors(): void
     {
         $this->httpClient->setDefaultResponse(
-            $this->responseFixture('submit-spam-response.http')
+            $this->responseFixture('submit-spam-response.http'),
         );
         $params = (new CommentParameters())
             ->withRequestParams('127.0.0.1')

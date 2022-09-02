@@ -59,7 +59,7 @@ class ResultTest extends TestCase
 
         self::assertEquals(
             $original->parameters()->getArrayCopy(),
-            $hydrated->parameters()->getArrayCopy()
+            $hydrated->parameters()->getArrayCopy(),
         );
 
         self::assertTrue($hydrated->isSpam());
