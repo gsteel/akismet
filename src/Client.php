@@ -19,27 +19,16 @@ use function strtolower;
 
 final class Client implements AkismetClient
 {
-    private string $apiKey;
-    private HttpClient $httpClient;
-    private RequestFactoryInterface $requestFactory;
-    private StreamFactoryInterface $streamFactory;
-    private string $websiteUri;
-
     public function __construct(
-        string $apiKey,
-        string $websiteUri,
-        HttpClient $httpClient,
-        RequestFactoryInterface $requestFactory,
-        StreamFactoryInterface $streamFactory
+        private string $apiKey,
+        private string $websiteUri,
+        private HttpClient $httpClient,
+        private RequestFactoryInterface $requestFactory,
+        private StreamFactoryInterface $streamFactory,
     ) {
-        $this->apiKey = $apiKey;
-        $this->websiteUri = $websiteUri;
-        $this->httpClient = $httpClient;
-        $this->requestFactory = $requestFactory;
-        $this->streamFactory = $streamFactory;
     }
 
-    public function verifyKey(?string $apiKey = null, ?string $websiteUri = null): bool
+    public function verifyKey(string|null $apiKey = null, string|null $websiteUri = null): bool
     {
         $request = $this->createRequest(self::VERIFY_KEY_URI)
             ->withBody($this->streamFactory->createStream(http_build_query([

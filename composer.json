@@ -17,7 +17,7 @@
         }
     ],
     "require": {
-        "php": "^7.4 || ~8.0 || ~8.1",
+        "php": "~8.0 || ~8.1",
         "ext-json": "*",
         "myclabs/php-enum": "^1.8.3",
         "php-http/discovery": "^1.14.1",
@@ -30,8 +30,7 @@
     },
     "require-dev": {
         "doctrine/coding-standard": "^10.0",
-        "ergebnis/composer-normalize": "^2.20",
-        "laminas/laminas-diactoros": "^2.13",
+        "laminas/laminas-diactoros": "^2.17",
         "php-http/client-common": "^2.5",
         "php-http/curl-client": "^2.2",
         "php-http/mock-client": "^1.5",
@@ -57,7 +56,7 @@
             "ergebnis/composer-normalize": true
         },
         "platform": {
-            "php": "7.4.99"
+            "php": "8.0.99"
         }
     },
     "scripts": {

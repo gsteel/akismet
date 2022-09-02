@@ -16,7 +16,7 @@ jobs:
       - name: Setup PHP Action
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 7.4
+          php-version: 8.1
           coverage: pcov
       - name: Install latest dependencies
         run: composer update --prefer-dist --no-progress

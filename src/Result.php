@@ -13,13 +13,8 @@ use const JSON_THROW_ON_ERROR;
 /** @psalm-import-type ParameterArray from CommentParameters */
 final class Result implements JsonSerializable
 {
-    private CommentParameters $parameters;
-    private bool $isSpam;
-
-    public function __construct(CommentParameters $parameters, bool $isSpam)
+    public function __construct(private CommentParameters $parameters, private bool $isSpam)
     {
-        $this->parameters = $parameters;
-        $this->isSpam = $isSpam;
     }
 
     public function __invoke(): bool

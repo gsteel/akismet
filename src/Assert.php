@@ -38,7 +38,7 @@ final class Assert extends WebmozartAssert
         ));
     }
 
-    public static function nullOrUrl(?string $value, string $message = ''): void
+    public static function nullOrUrl(string|null $value, string $message = ''): void
     {
         self::__callStatic('nullOrUrl', [$value, $message]);
     }
