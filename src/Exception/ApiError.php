@@ -15,10 +15,8 @@ use function is_numeric;
 
 final class ApiError extends RuntimeException implements GenericException
 {
-    /** @var ResponseInterface */
-    private $response;
-    /** @var RequestInterface */
-    private $request;
+    private ResponseInterface $response;
+    private RequestInterface $request;
 
     public function __construct(
         RequestInterface $request,

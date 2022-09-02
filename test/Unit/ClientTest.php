@@ -25,12 +25,9 @@ use function urlencode;
 
 class ClientTest extends TestCase
 {
-    /** @var \Http\Mock\Client */
-    private $httpClient;
-    /** @var Client */
-    private $akismet;
-    /** @var StreamFactory */
-    private $streamFactory;
+    private \Http\Mock\Client $httpClient;
+    private Client $akismet;
+    private StreamFactory $streamFactory;
 
     protected function setUp(): void
     {

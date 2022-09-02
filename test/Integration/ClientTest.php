@@ -16,12 +16,9 @@ use function getenv;
 
 final class ClientTest extends TestCase
 {
-    /** @var string */
-    private $apiKey;
-    /** @var string */
-    private $blog;
-    /** @var Client */
-    private $client;
+    private string $apiKey;
+    private string $blog;
+    private Client $client;
 
     protected function setUp(): void
     {
