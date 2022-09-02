@@ -2,6 +2,9 @@
 
 [![Continuous Integration](https://github.com/gsteel/akismet/actions/workflows/continuous-integration.yml/badge.svg)](https://github.com/gsteel/akismet/actions/workflows/continuous-integration.yml)
 [![codecov](https://codecov.io/gh/gsteel/akismet/branch/main/graph/badge.svg?token=Gu5rkToZvo)](https://codecov.io/gh/gsteel/akismet)
+[![Psalm Type Coverage](https://shepherd.dev/github/gsteel/akismet/coverage.svg)](https://shepherd.dev/github/gsteel/akismet)
+[![Latest Stable Version](https://poser.pugx.org/gsteel/akismet/v/stable)](https://packagist.org/packages/gsteel/akismet)
+[![Total Downloads](https://poser.pugx.org/gsteel/akismet/downloads)](https://packagist.org/packages/gsteel/akismet)
 
 ## Introduction
 

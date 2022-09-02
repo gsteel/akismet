@@ -56,5 +56,16 @@
             "dealerdirect/phpcodesniffer-composer-installer": true,
             "ergebnis/composer-normalize": true
         }
+    },
+    "scripts": {
+        "check": [
+            "@cs",
+            "@sa",
+            "@test"
+        ],
+        "cs": "phpcs",
+        "sa": "psalm",
+        "test": "phpunit",
+        "static-analysis": "psalm --stats --shepherd"
     }
 }
