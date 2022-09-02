@@ -20,7 +20,7 @@ class ClientDiscoveryFactoryTest extends TestCase
     /** @var MockObject|ContainerInterface */
     private $container;
     /** @var iterable|string[] */
-    private $restoreStrategies;
+    private iterable $restoreStrategies;
 
     protected function setUp(): void
     {

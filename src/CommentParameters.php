@@ -65,7 +65,7 @@ final class CommentParameters implements JsonSerializable
     ];
 
     /** @psalm-var ParameterArray */
-    private $storage = [];
+    private array $storage = [];
 
     /** @param ParameterArray $parameters */
     public function __construct(array $parameters = [])

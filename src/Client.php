@@ -19,16 +19,11 @@ use function strtolower;
 
 final class Client implements AkismetClient
 {
-    /** @var string */
-    private $apiKey;
-    /** @var HttpClient */
-    private $httpClient;
-    /** @var RequestFactoryInterface */
-    private $requestFactory;
-    /** @var StreamFactoryInterface */
-    private $streamFactory;
-    /** @var string */
-    private $websiteUri;
+    private string $apiKey;
+    private HttpClient $httpClient;
+    private RequestFactoryInterface $requestFactory;
+    private StreamFactoryInterface $streamFactory;
+    private string $websiteUri;
 
     public function __construct(
         string $apiKey,

@@ -20,8 +20,7 @@ use const JSON_THROW_ON_ERROR;
 
 class CommentParametersTest extends TestCase
 {
-    /** @var CommentParameters */
-    private $params;
+    private CommentParameters $params;
 
     protected function setUp(): void
     {

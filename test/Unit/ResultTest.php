@@ -15,8 +15,7 @@ use const JSON_THROW_ON_ERROR;
 
 class ResultTest extends TestCase
 {
-    /** @var CommentParameters */
-    private $params;
+    private CommentParameters $params;
 
     protected function setUp(): void
     {
