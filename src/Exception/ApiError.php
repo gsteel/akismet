@@ -15,18 +15,13 @@ use function is_numeric;
 
 final class ApiError extends RuntimeException implements GenericException
 {
-    private ResponseInterface $response;
-    private RequestInterface $request;
-
     public function __construct(
-        RequestInterface $request,
-        ResponseInterface $response,
+        private RequestInterface $request,
+        private ResponseInterface $response,
         string $message,
         int $code = 0,
-        ?Throwable $previous = null
+        Throwable|null $previous = null,
     ) {
-        $this->request = $request;
-        $this->response = $response;
         parent::__construct($message, $code, $previous);
     }
 

@@ -13,7 +13,7 @@ use function sprintf;
 
 final class HttpError extends RuntimeException implements GenericException
 {
-    private ?RequestInterface $request = null;
+    private RequestInterface|null $request = null;
 
     public static function withFailedRequest(RequestInterface $request, Throwable $error): self
     {

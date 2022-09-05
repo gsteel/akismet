@@ -17,8 +17,7 @@ use function PHPUnit\Framework\assertInstanceOf;
 
 class ClientDiscoveryFactoryTest extends TestCase
 {
-    /** @var MockObject|ContainerInterface */
-    private $container;
+    private MockObject|ContainerInterface $container;
     /** @var iterable|string[] */
     private iterable $restoreStrategies;
 

@@ -36,7 +36,7 @@ interface AkismetClient
      *
      * @throws HttpError If communicating with the API is not possible.
      */
-    public function verifyKey(?string $apiKey = null, ?string $websiteUri = null): bool;
+    public function verifyKey(string|null $apiKey = null, string|null $websiteUri = null): bool;
 
     /**
      * Classify a comment/request as spam or not

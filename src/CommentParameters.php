@@ -111,9 +111,9 @@ final class CommentParameters implements JsonSerializable
     /** @throws InvalidRequestParameters If the IP address is invalid, or any URL parameters don't validate. */
     public function withRequestParams(
         string $ipAddress,
-        ?string $userAgent = null,
-        ?string $referrer = null,
-        ?string $permalink = null
+        string|null $userAgent = null,
+        string|null $referrer = null,
+        string|null $permalink = null,
     ): self {
         Assert::ip($ipAddress);
         Assert::nullOrUrl($referrer);
@@ -131,10 +131,10 @@ final class CommentParameters implements JsonSerializable
     public function withComment(
         string $comment,
         CommentType $type,
-        ?DateTimeInterface $commentDate = null,
-        ?string $authorName = null,
-        ?string $authorEmail = null,
-        ?string $authorUrl = null
+        DateTimeInterface|null $commentDate = null,
+        string|null $authorName = null,
+        string|null $authorEmail = null,
+        string|null $authorUrl = null,
     ): self {
         Assert::nullOrEmail($authorEmail);
         Assert::nullOrUrl($authorUrl);
@@ -171,8 +171,8 @@ final class CommentParameters implements JsonSerializable
     /** @throws InvalidRequestParameters if the website url is not a complete and valid url. */
     public function withHostInformation(
         string $websiteUrl,
-        ?string $websiteLanguage = null,
-        ?string $websiteCharset = null
+        string|null $websiteLanguage = null,
+        string|null $websiteCharset = null,
     ): self {
         Assert::url($websiteUrl);
 
@@ -183,7 +183,7 @@ final class CommentParameters implements JsonSerializable
         ])));
     }
 
-    public function websiteUrl(): ?string
+    public function websiteUrl(): string|null
     {
         return $this->storage['blog'] ?? null;
     }
@@ -207,7 +207,7 @@ final class CommentParameters implements JsonSerializable
         throw InvalidRequestParameters::withMessage($message);
     }
 
-    public function isValid(?string &$message = null): bool
+    public function isValid(string|null &$message = null): bool
     {
         try {
             Assert::keyExists(
@@ -286,8 +286,7 @@ final class CommentParameters implements JsonSerializable
         }
     }
 
-    /** @param string|int|null $value */
-    private function set(string $offset, $value): void
+    private function set(string $offset, string|int|null $value): void
     {
         $this->assertValidOffset($offset);
         $this->storage[$offset] = $value;
