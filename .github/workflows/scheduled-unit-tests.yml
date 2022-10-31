@@ -12,16 +12,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: codecov/codecov-action@v2
       - name: Setup PHP Action
         uses: shivammathur/setup-php@v2
         with:
           php-version: 8.1
-          coverage: pcov
       - name: Install latest dependencies
         run: composer update --prefer-dist --no-progress
       - name: PHPUnit
-        run: php -dpcov.enabled=1 ./vendor/bin/phpunit --coverage-clover=coverage.xml
+        run: vendor/bin/phpunit
         env:
           AKISMET_KEY: ${{ secrets.AKISMET_KEY }}
           AKISMET_BLOG: ${{ secrets.AKISMET_BLOG }}
