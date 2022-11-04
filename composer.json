@@ -37,7 +37,7 @@
         "phpunit/phpunit": "^9.5.26",
         "symfony/options-resolver": "^5.4.11",
         "vimeo/psalm": "^4.29",
-        "psalm/plugin-phpunit": "^0.17.0"
+        "psalm/plugin-phpunit": "^0.18.3"
     },
     "autoload": {
         "psr-4": {
