@@ -34,7 +34,7 @@
         "php-http/client-common": "^2.6",
         "php-http/curl-client": "^2.2.1",
         "php-http/mock-client": "^1.5",
-        "phpunit/phpunit": "^9.5.26",
+        "phpunit/phpunit": "^9.5.27",
         "symfony/options-resolver": "^5.4.11",
         "vimeo/psalm": "^5.1.0",
         "psalm/plugin-phpunit": "^0.18.4"
