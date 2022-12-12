@@ -36,7 +36,7 @@
         "php-http/mock-client": "^1.5",
         "phpunit/phpunit": "^9.5.27",
         "symfony/options-resolver": "^5.4.11",
-        "vimeo/psalm": "^5.1.0",
+        "vimeo/psalm": "^5.2.0",
         "psalm/plugin-phpunit": "^0.18.4"
     },
     "autoload": {
