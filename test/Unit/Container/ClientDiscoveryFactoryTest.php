@@ -24,6 +24,7 @@ class ClientDiscoveryFactoryTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
+
         $this->container = $this->createMock(ContainerInterface::class);
         $this->restoreStrategies = Psr17FactoryDiscovery::getStrategies();
     }
@@ -31,6 +32,7 @@ class ClientDiscoveryFactoryTest extends TestCase
     protected function tearDown(): void
     {
         Psr17FactoryDiscovery::setStrategies($this->restoreStrategies);
+
         parent::tearDown();
     }
 
