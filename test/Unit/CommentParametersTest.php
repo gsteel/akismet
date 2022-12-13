@@ -25,6 +25,7 @@ class CommentParametersTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
+
         $this->params = (new CommentParameters())
             ->withRequestParams('127.0.0.1')
             ->withComment('Whatever', CommentType::message())
