@@ -29,7 +29,7 @@
         "webmozart/assert": "^1.11"
     },
     "require-dev": {
-        "doctrine/coding-standard": "^10.0",
+        "doctrine/coding-standard": "^11.0.0",
         "laminas/laminas-diactoros": "^2.22.0",
         "php-http/client-common": "^2.6",
         "php-http/curl-client": "^2.2.1",
