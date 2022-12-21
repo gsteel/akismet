@@ -30,13 +30,13 @@
     },
     "require-dev": {
         "doctrine/coding-standard": "^11.0.0",
-        "laminas/laminas-diactoros": "^2.23.0",
+        "laminas/laminas-diactoros": "^2.24.0",
         "php-http/client-common": "^2.6",
         "php-http/curl-client": "^2.2.1",
         "php-http/mock-client": "^1.5",
         "phpunit/phpunit": "^9.5.27",
         "symfony/options-resolver": "^5.4.11",
-        "vimeo/psalm": "^5.2.0",
+        "vimeo/psalm": "^5.4.0",
         "psalm/plugin-phpunit": "^0.18.4"
     },
     "autoload": {
