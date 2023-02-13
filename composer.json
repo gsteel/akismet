@@ -26,7 +26,8 @@
         "psr/http-client-implementation": "*",
         "psr/http-factory": "^1.0.1",
         "psr/http-factory-implementation": "*",
-        "webmozart/assert": "^1.11"
+        "webmozart/assert": "^1.11",
+        "symfony/http-client": "^6.0"
     },
     "require-dev": {
         "doctrine/coding-standard": "^11.1.0",
@@ -53,7 +54,8 @@
     "config": {
         "allow-plugins": {
             "dealerdirect/phpcodesniffer-composer-installer": true,
-            "ergebnis/composer-normalize": true
+            "ergebnis/composer-normalize": true,
+            "php-http/discovery": true
         },
         "platform": {
             "php": "8.0.99"
