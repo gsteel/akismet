@@ -29,12 +29,6 @@ final class ClientDiscoveryFactory
             'The website address has not been configured or is invalid in `config.akismet.website`',
         );
         Assert::url($website, 'The website address has not been configured or is invalid in `config.akismet.website`');
-
-        /**
-         * @link https://github.com/php-http/discovery/pull/207
-         *
-         * @psalm-suppress InvalidCatch
-         */
         try {
             return new Client(
                 $key,
