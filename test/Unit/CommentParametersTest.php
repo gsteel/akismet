@@ -10,6 +10,8 @@ use GSteel\Akismet\CommentParameters;
 use GSteel\Akismet\CommentType;
 use GSteel\Akismet\Exception\InvalidRequestParameters;
 use Laminas\Diactoros\ServerRequestFactory;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Depends;
 use PHPUnit\Framework\TestCase;
 
 use function array_filter;
@@ -209,7 +211,7 @@ class CommentParametersTest extends TestCase
         return $withRequest;
     }
 
-    /** @depends testThatMutatorsReturnNewInstances */
+    #[Depends('testThatMutatorsReturnNewInstances')]
     public function testThatJsonEncodeRoundTripYieldsIdenticalData(CommentParameters $source): void
     {
         $jsonString = json_encode($source, JSON_THROW_ON_ERROR);
@@ -221,8 +223,8 @@ class CommentParametersTest extends TestCase
         );
     }
 
-    /** @return array<string, array<string, string>> */
-    public function serverArrayDataProvider(): array
+    /** @return array<string, array{0: array<string, string>}> */
+    public static function serverArrayDataProvider(): array
     {
         return [
             'Only IP' => [['REMOTE_ADDR' => '1.2.3.4']],
@@ -231,11 +233,8 @@ class CommentParametersTest extends TestCase
         ];
     }
 
-    /**
-     * @param array<string, string> $serverParams
-     *
-     * @dataProvider serverArrayDataProvider
-     */
+    /** @param array<string, string> $serverParams */
+    #[DataProvider('serverArrayDataProvider')]
     public function testThatAPsrRequestCanBeUsedToCreateAnInstance(array $serverParams): void
     {
         $request = (new ServerRequestFactory())->createServerRequest('GET', 'https://www.example.com', $serverParams);
@@ -249,11 +248,8 @@ class CommentParametersTest extends TestCase
         self::assertEquals($expect, CommentParameters::fromRequest($request)->getArrayCopy());
     }
 
-    /**
-     * @param array<string, string> $serverParams
-     *
-     * @dataProvider serverArrayDataProvider
-     */
+    /** @param array<string, string> $serverParams */
+    #[DataProvider('serverArrayDataProvider')]
     public function testThatAPsrRequestCanBeUsedToMutateAnInstance(array $serverParams): void
     {
         $request = (new ServerRequestFactory())->createServerRequest('GET', 'https://www.example.com', $serverParams);
