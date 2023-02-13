@@ -24,16 +24,18 @@ final class ClientTest extends TestCase
     {
         parent::setUp();
 
-        $this->apiKey = getenv('AKISMET_KEY');
-        if ($this->apiKey === false) {
+        $apiKey = getenv('AKISMET_KEY');
+        if ($apiKey === false) {
             self::markTestSkipped('There is no API key in the environment variable AKISMET_KEY');
         }
 
-        $this->blog = getenv('AKISMET_BLOG');
-        if ($this->blog === false) {
+        $blog = getenv('AKISMET_BLOG');
+        if ($blog === false) {
             self::markTestSkipped('There is no website url in the environment variable AKISMET_BLOG');
         }
 
+        $this->apiKey = $apiKey;
+        $this->blog = $blog;
         $this->client = $this->clientFactory($this->apiKey, $this->blog);
     }
 
@@ -87,7 +89,7 @@ final class ClientTest extends TestCase
             ->withComment('Anything', CommentType::comment());
 
         $this->client->submitHam($params);
-        $this->addToAssertionCount(1);
+        self::assertTrue(true);
     }
 
     /** @depends testValidApiKey */
@@ -99,6 +101,6 @@ final class ClientTest extends TestCase
             ->withComment('Anything', CommentType::comment());
 
         $this->client->submitSpam($params);
-        $this->addToAssertionCount(1);
+        self::assertTrue(true);
     }
 }
