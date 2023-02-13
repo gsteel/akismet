@@ -7,6 +7,7 @@ namespace GSteel\Akismet\Test\Exception;
 use GSteel\Akismet\Exception\ApiError;
 use Laminas\Diactoros\Response\TextResponse;
 use Laminas\Diactoros\ServerRequestFactory;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class ApiErrorTest extends TestCase
@@ -23,7 +24,7 @@ class ApiErrorTest extends TestCase
     }
 
     /** @return array<array-key, array{0: string}> */
-    public function headerNameProvider(): array
+    public static function headerNameProvider(): array
     {
         return [
             ['X-akismet-alert-msg'],
@@ -31,7 +32,7 @@ class ApiErrorTest extends TestCase
         ];
     }
 
-    /** @dataProvider headerNameProvider */
+    #[DataProvider('headerNameProvider')]
     public function testThatCustomAkismetHeaderValuesWillBePResentInTheErrorMessageIfSet(string $headerName): void
     {
         $request = (new ServerRequestFactory())->createServerRequest('POST', '/foo');

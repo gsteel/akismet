@@ -10,11 +10,13 @@ use GSteel\Akismet\CommentType;
 use GSteel\Akismet\Exception\ApiError;
 use GSteel\Akismet\Exception\HttpError;
 use Http\Client\Exception\NetworkException;
+use Http\Mock\Client as MockClient;
 use Laminas\Diactoros\Request;
 use Laminas\Diactoros\RequestFactory;
 use Laminas\Diactoros\Response;
 use Laminas\Diactoros\ResponseFactory;
 use Laminas\Diactoros\StreamFactory;
+use PHPUnit\Framework\Attributes\Depends;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -25,7 +27,7 @@ use function urlencode;
 
 class ClientTest extends TestCase
 {
-    private \Http\Mock\Client $httpClient;
+    private MockClient $httpClient;
     private Client $akismet;
     private StreamFactory $streamFactory;
 
@@ -33,7 +35,7 @@ class ClientTest extends TestCase
     {
         parent::setUp();
 
-        $this->httpClient = new \Http\Mock\Client(
+        $this->httpClient = new MockClient(
             new ResponseFactory(),
         );
         $this->streamFactory = new StreamFactory();
@@ -71,19 +73,19 @@ class ClientTest extends TestCase
         return $this->httpClient->getLastRequest();
     }
 
-    /** @depends testThatVerifyingTheKeyIsSuccessfulWhenTheApiIndicatesItIsValid */
+    #[Depends('testThatVerifyingTheKeyIsSuccessfulWhenTheApiIndicatesItIsValid')]
     public function testThatTheKeyVerificationRequestUsesTheGivenUrl(RequestInterface $request): void
     {
         self::assertStringContainsString(urlencode('https://other.example.com'), (string) $request->getBody());
     }
 
-    /** @depends testThatVerifyingTheKeyIsSuccessfulWhenTheApiIndicatesItIsValid */
+    #[Depends('testThatVerifyingTheKeyIsSuccessfulWhenTheApiIndicatesItIsValid')]
     public function testThatTheKeyVerificationRequestUsesTheGivenApiKey(RequestInterface $request): void
     {
         self::assertStringContainsString(urlencode('WHATEVER'), (string) $request->getBody());
     }
 
-    /** @depends testThatVerifyingTheKeyIsSuccessfulWhenTheApiIndicatesItIsValid */
+    #[Depends('testThatVerifyingTheKeyIsSuccessfulWhenTheApiIndicatesItIsValid')]
     public function testTheRequestHasContentTypeHeader(RequestInterface $request): void
     {
         $header = $request->getHeader('Content-Type');
@@ -93,7 +95,7 @@ class ClientTest extends TestCase
         self::assertEquals('application/x-www-form-urlencoded', $value);
     }
 
-    /** @depends testThatVerifyingTheKeyIsSuccessfulWhenTheApiIndicatesItIsValid */
+    #[Depends('testThatVerifyingTheKeyIsSuccessfulWhenTheApiIndicatesItIsValid')]
     public function testTheRequestHasANonEmptyUserAgentHeader(RequestInterface $request): void
     {
         $header = $request->getHeader('User-Agent');
@@ -234,7 +236,7 @@ class ClientTest extends TestCase
             ->withComment('Anything', CommentType::message());
 
         $this->akismet->submitSpam($params);
-        $this->addToAssertionCount(1);
+        self::assertTrue(true);
     }
 
     public function testThatSubmittingHamSuccessfullyDoesNotYieldAnyErrors(): void
@@ -247,6 +249,6 @@ class ClientTest extends TestCase
             ->withComment('Anything', CommentType::message());
 
         $this->akismet->submitHam($params);
-        $this->addToAssertionCount(1);
+        self::assertTrue(true);
     }
 }

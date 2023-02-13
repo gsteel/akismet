@@ -10,6 +10,7 @@ use GSteel\Akismet\CommentType;
 use Laminas\Diactoros\RequestFactory;
 use Laminas\Diactoros\ResponseFactory;
 use Laminas\Diactoros\StreamFactory;
+use PHPUnit\Framework\Attributes\Depends;
 use PHPUnit\Framework\TestCase;
 
 use function getenv;
@@ -58,7 +59,7 @@ final class ClientTest extends TestCase
         self::assertTrue($this->client->verifyKey($this->apiKey, $this->blog));
     }
 
-    /** @depends testValidApiKey */
+    #[Depends('testValidApiKey')]
     public function testSpam(): void
     {
         $params = (new CommentParameters())
@@ -69,7 +70,7 @@ final class ClientTest extends TestCase
         self::assertTrue($this->client->check($params)->isSpam());
     }
 
-    /** @depends testValidApiKey */
+    #[Depends('testValidApiKey')]
     public function testHam(): void
     {
         $params = (new CommentParameters(['user_role' => 'administrator']))
@@ -80,7 +81,7 @@ final class ClientTest extends TestCase
         self::assertFalse($this->client->check($params)->isSpam());
     }
 
-    /** @depends testValidApiKey */
+    #[Depends('testValidApiKey')]
     public function testSubmitHamOperatesWithoutObviousError(): void
     {
         $params = (new CommentParameters())
@@ -92,7 +93,7 @@ final class ClientTest extends TestCase
         self::assertTrue(true);
     }
 
-    /** @depends testValidApiKey */
+    #[Depends('testValidApiKey')]
     public function testSubmitSpamOperatesWithoutObviousError(): void
     {
         $params = (new CommentParameters())
