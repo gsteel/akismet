@@ -13,17 +13,17 @@
          failOnRisky="true"
          failOnWarning="true"
          cacheDirectory=".phpunit.cache">
-    <testsuites>
-        <testsuite name="Unit">
-            <directory>test/Unit</directory>
-        </testsuite>
-        <testsuite name="Integration">
-            <directory>test/Integration</directory>
-        </testsuite>
-    </testsuites>
-    <coverage>
-        <include>
-            <directory suffix=".php">src</directory>
-        </include>
-    </coverage>
+  <testsuites>
+    <testsuite name="Unit">
+      <directory>test/Unit</directory>
+    </testsuite>
+    <testsuite name="Integration">
+      <directory>test/Integration</directory>
+    </testsuite>
+  </testsuites>
+  <source>
+    <include>
+      <directory suffix=".php">src</directory>
+    </include>
+  </source>
 </phpunit>
