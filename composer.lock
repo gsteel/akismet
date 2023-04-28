@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1eb21fb69f8ddcd6e56e1790f457f447",
+    "content-hash": "46ee2225bc5926b0719dd0a52b3e5257",
     "packages": [
         {
             "name": "myclabs/php-enum",
@@ -1761,16 +1761,16 @@
         },
         {
             "name": "php-http/curl-client",
-            "version": "2.2.1",
+            "version": "2.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-http/curl-client.git",
-                "reference": "2ed4245a817d859dd0c1d51c7078cdb343cf5233"
+                "reference": "f7352c0796549949900d28fe991e19c90572386a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-http/curl-client/zipball/2ed4245a817d859dd0c1d51c7078cdb343cf5233",
-                "reference": "2ed4245a817d859dd0c1d51c7078cdb343cf5233",
+                "url": "https://api.github.com/repos/php-http/curl-client/zipball/f7352c0796549949900d28fe991e19c90572386a",
+                "reference": "f7352c0796549949900d28fe991e19c90572386a",
                 "shasum": ""
             },
             "require": {
@@ -1780,7 +1780,7 @@
                 "php-http/httplug": "^2.0",
                 "php-http/message": "^1.2",
                 "psr/http-client": "^1.0",
-                "psr/http-factory": "^1.0",
+                "psr/http-factory-implementation": "^1.0",
                 "symfony/options-resolver": "^3.4 || ^4.0 || ^5.0 || ^6.0"
             },
             "provide": {
@@ -1795,11 +1795,6 @@
                 "phpunit/phpunit": "^7.5 || ^9.4"
             },
             "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.x-dev"
-                }
-            },
             "autoload": {
                 "psr-4": {
                     "Http\\Client\\Curl\\": "src/"
@@ -1824,9 +1819,9 @@
             ],
             "support": {
                 "issues": "https://github.com/php-http/curl-client/issues",
-                "source": "https://github.com/php-http/curl-client/tree/2.2.1"
+                "source": "https://github.com/php-http/curl-client/tree/2.3.0"
             },
-            "time": "2021-12-10T18:02:07+00:00"
+            "time": "2023-04-28T14:56:41+00:00"
         },
         {
             "name": "php-http/httplug",
