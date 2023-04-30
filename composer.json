@@ -33,7 +33,7 @@
         "laminas/laminas-diactoros": "^2.25.2",
         "php-http/client-common": "^2.6.1",
         "php-http/curl-client": "^2.3.0",
-        "php-http/mock-client": "^1.5",
+        "php-http/mock-client": "^1.5.1",
         "phpunit/phpunit": "^10.1.2",
         "symfony/options-resolver": "^5.4.21",
         "vimeo/psalm": "^5.9.0",
