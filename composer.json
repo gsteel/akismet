@@ -30,7 +30,7 @@
     },
     "require-dev": {
         "doctrine/coding-standard": "^12.0.0",
-        "laminas/laminas-diactoros": "^2.25.2",
+        "laminas/laminas-diactoros": "^3.0.0",
         "php-http/client-common": "^2.6.1",
         "php-http/curl-client": "^2.3.0",
         "php-http/mock-client": "^1.5.1",
