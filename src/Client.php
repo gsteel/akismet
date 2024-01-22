@@ -112,7 +112,7 @@ final class Client implements AkismetClient
 
     private function prepareParameters(CommentParameters $parameters): CommentParameters
     {
-        if (! $parameters->websiteUrl()) {
+        if ($parameters->websiteUrl() === null) {
             return $parameters->withWebsiteUrl($this->websiteUri);
         }
 
