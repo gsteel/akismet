@@ -30,6 +30,6 @@ jobs:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
           AKISMET_KEY: ${{ secrets.AKISMET_KEY }}
           AKISMET_BLOG: ${{ secrets.AKISMET_BLOG }}
-        uses: laminas/laminas-continuous-integration-action@1.37.0
+        uses: laminas/laminas-continuous-integration-action@1.38.0
         with:
           job: ${{ matrix.job }}
