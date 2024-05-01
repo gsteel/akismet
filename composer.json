@@ -35,7 +35,7 @@
         "php-http/curl-client": "^2.3.2",
         "php-http/mock-client": "^1.6",
         "phpunit/phpunit": "^10.5.20",
-        "vimeo/psalm": "^5.23.1",
+        "vimeo/psalm": "^5.24.0",
         "psalm/plugin-phpunit": "^0.19.0"
     },
     "autoload": {
