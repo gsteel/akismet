@@ -11,7 +11,7 @@ jobs:
     name: Scheduled Test Suite
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4.1.4
+      - uses: actions/checkout@v4.1.5
       - name: Setup PHP Action
         uses: shivammathur/setup-php@2.30.4
         with:
