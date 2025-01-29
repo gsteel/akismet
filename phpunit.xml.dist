@@ -10,8 +10,12 @@
          displayDetailsOnTestsThatTriggerDeprecations="true"
          displayDetailsOnSkippedTests="true"
          displayDetailsOnIncompleteTests="true"
+         displayDetailsOnPhpunitDeprecations="true"
          failOnRisky="true"
          failOnWarning="true"
+         failOnPhpunitDeprecation="true"
+         failOnDeprecation="true"
+         failOnNotice="true"
          cacheDirectory=".phpunit.cache">
   <testsuites>
     <testsuite name="Unit">
