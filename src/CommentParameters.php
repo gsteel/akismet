@@ -8,6 +8,7 @@ use DateTimeImmutable;
 use DateTimeInterface;
 use GSteel\Akismet\Exception\InvalidRequestParameters;
 use JsonSerializable;
+use Override;
 use Psr\Http\Message\ServerRequestInterface;
 
 use function array_filter;
@@ -240,6 +241,7 @@ final class CommentParameters implements JsonSerializable
     }
 
     /** @return ParameterArray */
+    #[Override]
     public function jsonSerialize(): array
     {
         return $this->storage;

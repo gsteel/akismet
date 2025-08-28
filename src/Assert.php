@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace GSteel\Akismet;
 
 use GSteel\Akismet\Exception\InvalidRequestParameters;
+use Override;
 use Webmozart\Assert\Assert as WebmozartAssert;
 
 use function filter_var;
@@ -21,6 +22,7 @@ final class Assert extends WebmozartAssert
      * @psalm-pure
      * @inheritDoc
      */
+    #[Override]
     protected static function reportInvalidArgument($message): void
     {
         throw new InvalidRequestParameters($message);

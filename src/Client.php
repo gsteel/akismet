@@ -6,6 +6,7 @@ namespace GSteel\Akismet;
 
 use GSteel\Akismet\Exception\ApiError;
 use GSteel\Akismet\Exception\HttpError;
+use Override;
 use Psr\Http\Client\ClientExceptionInterface;
 use Psr\Http\Client\ClientInterface as HttpClient;
 use Psr\Http\Message\RequestFactoryInterface;
@@ -17,7 +18,7 @@ use function http_build_query;
 use function sprintf;
 use function strtolower;
 
-final class Client implements AkismetClient
+final readonly class Client implements AkismetClient
 {
     public function __construct(
         private string $apiKey,
@@ -28,6 +29,7 @@ final class Client implements AkismetClient
     ) {
     }
 
+    #[Override]
     public function verifyKey(string|null $apiKey = null, string|null $websiteUri = null): bool
     {
         $request = $this->createRequest(self::VERIFY_KEY_URI)
@@ -39,6 +41,7 @@ final class Client implements AkismetClient
         return strtolower((string) $this->sendRequest($request)->getBody()) === 'valid';
     }
 
+    #[Override]
     public function check(CommentParameters $parameters): Result
     {
         $parameters = $this->prepareParameters($parameters);
@@ -58,6 +61,7 @@ final class Client implements AkismetClient
         return new Result($parameters, $isSpam);
     }
 
+    #[Override]
     public function submitSpam(CommentParameters $parameters): void
     {
         $parameters = $this->prepareParameters($parameters);
@@ -66,6 +70,7 @@ final class Client implements AkismetClient
         $this->assertSubmissionBodyIsExpectedValue($request, $response);
     }
 
+    #[Override]
     public function submitHam(CommentParameters $parameters): void
     {
         $parameters = $this->prepareParameters($parameters);

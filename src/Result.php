@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace GSteel\Akismet;
 
 use JsonSerializable;
+use Override;
 
 use function json_decode;
 
@@ -33,6 +34,7 @@ final class Result implements JsonSerializable
     }
 
     /** @return array{isSpam: bool, parameters: CommentParameters} */
+    #[Override]
     public function jsonSerialize(): array
     {
         return [
