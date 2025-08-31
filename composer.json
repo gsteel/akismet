@@ -37,7 +37,7 @@
         "phpunit/phpunit": "^11.5.35",
         "vimeo/psalm": "^6.13.1",
         "psalm/plugin-phpunit": "^0.19.5",
-        "symfony/options-resolver": "^7.3.2"
+        "symfony/options-resolver": "^7.3.3"
     },
     "conflict": {
         "php-http/httplug": "<2.4.1"
