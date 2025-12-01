@@ -31,10 +31,10 @@
     "require-dev": {
         "doctrine/coding-standard": "^14.0.0",
         "laminas/laminas-diactoros": "^3.8.0",
-        "php-http/client-common": "^2.7.2",
+        "php-http/client-common": "^2.7.3",
         "php-http/curl-client": "^2.3.3",
         "php-http/mock-client": "^1.6.1",
-        "phpunit/phpunit": "^11.5.44",
+        "phpunit/phpunit": "^11.5.45",
         "vimeo/psalm": "^6.13.1",
         "psalm/plugin-phpunit": "^0.19.5",
         "symfony/options-resolver": "^7.4.0"
