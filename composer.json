@@ -36,7 +36,7 @@
         "php-http/mock-client": "^1.6.1",
         "phpunit/phpunit": "^11.5.55",
         "vimeo/psalm": "^6.15.1",
-        "psalm/plugin-phpunit": "^0.19.5",
+        "psalm/plugin-phpunit": "^1.2.0",
         "symfony/options-resolver": "^7.4.0"
     },
     "conflict": {
